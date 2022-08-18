@@ -36,9 +36,22 @@ bat(/"${mvnHome}\bin\mvn" -Dmaven.test.failure.ignore clean verify/)
 }
 stage('Docker Build'){
 if (isUnix()) {
-sh "docker build -t harshita1811/devops-groovy-products1:latest ."
+sh "docker build -t harshitasingh1811/devops-groovy-products1:latest ."
 } else {
-bat("docker build -t harshita1811/devops-groovy-products1:latest .")
+bat("docker build -t harshitasingh1811/devops-groovy-products1:latest .")
+}
+}
+
+stage('DockerPush'){
+withCredentials([userNamePassword(credentialsId:'DockerHubToken',usernameVariable:'DockerHubTokenUser',
+passwordVariable:'DockerHubTokenPassword')]){
+if (isUnix()) {
+sh "docker login -u ${env.DockerHubTokenUser} -p ${DockerHubTokenPassword}"
+sh 'docker push harshitasingh1811/devops-groovy-products1:latest'
+} else {
+bat("docker login -u ${env.DockerHubTokenUser} -p ${DockerHubTokenPassword}")
+bat('docker push harshitasingh1811/devops-groovy-products1:latest')
+}
 }
 }
 stage('Sonar') {
