@@ -36,9 +36,9 @@ bat(/"${mvnHome}\bin\mvn" -Dmaven.test.failure.ignore clean verify/)
 }
 stage('Docker Build'){
 if (isUnix()) {
-sh "docker build -t harshita1811/devops-groovy-products1:latest."
+sh "docker build -t harshita1811/devops-groovy-products1:latest ."
 } else {
-bat("docker build -t harshita1811/devops-groovy-products1:latest.")
+bat("docker build -t harshita1811/devops-groovy-products1:latest .")
 }
 }
 stage('Sonar') {
